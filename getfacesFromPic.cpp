@@ -43,23 +43,17 @@ Mat detectAndDisplay( Mat frame, CascadeClassifier face_cascade )
 int main(int argc, char *argv[])
 {
     Mat faces;
-    VideoCapture cap;
     face_cascade.load(face_cascade_name);
-    while(true)
-    {
-        cap.read(faces);
-        Mat faceROI = detectAndDisplay(faces,face_cascade);
-        cout << "getting size and faces" << endl;
+    faces = imread(argv[1]);
+    Mat faceROI = detectAndDisplay(faces,face_cascade);
+    cout << "getting size and faces" << endl;
 
-        if(!faceROI.empty())
-        {
-             if((faceROI.rows * faceROI.cols) > 35000)
-             { 
-                   imwrite("face.jpg", faceROI);
-             }
-        }
-        if(waitKey(1) == 'q')
-            break;
+    if(!faceROI.empty())
+    {
+         if((faceROI.rows * faceROI.cols) > 35000)
+         { 
+               imwrite("face.jpg", faceROI);
+         }
     }
     return 0;    
 }
