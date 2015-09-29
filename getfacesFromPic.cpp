@@ -26,7 +26,7 @@ Mat detectAndDisplay( Mat frame, CascadeClassifier face_cascade )
   equalizeHist( frame_gray, frame_gray );
 
   //-- Detect faces
-  face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, Size(30, 30) );
+  face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, Size(20, 20) );
 
   for( int i = 0; i < faces.size(); i++ )
   {
@@ -34,26 +34,25 @@ Mat detectAndDisplay( Mat frame, CascadeClassifier face_cascade )
     //ellipse( frame, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
 
     Mat faceROI = frame( faces[i] );
-    return faceROI;
-
+    std::ostringstream stringStream;
+    stringStream << "face" << i << ".jpg";
+    string file = stringStream.str();
+    cout << "getting size and faces" << endl;
+    if(!faceROI.empty())
+    {
+         if((faceROI.rows * faceROI.cols) > 20000)
+         { 
+               imwrite(file, faceROI);
+         }
+    }
   }
-
- }
+}
 
 int main(int argc, char *argv[])
 {
     Mat faces;
     face_cascade.load(face_cascade_name);
     faces = imread(argv[1]);
-    Mat faceROI = detectAndDisplay(faces,face_cascade);
-    cout << "getting size and faces" << endl;
-
-    if(!faceROI.empty())
-    {
-         if((faceROI.rows * faceROI.cols) > 35000)
-         { 
-               imwrite("face.jpg", faceROI);
-         }
-    }
+    detectAndDisplay(faces,face_cascade);
     return 0;    
 }
