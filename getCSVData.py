@@ -46,7 +46,10 @@ with open('match_scores.csv', 'rb') as f:
     print(msgString)
     tts = gTTS(text=msgString, lang="en") 
     tts.save("hello.mp3")
-            
+    print("appending: " + finalPeopleList[index].split('.')[0])
+    file1 = open("names.txt", "a")
+    file1.write(finalPeopleList[index].split('.')[0] + "\n")
+    file1.close()   
 
 
 
