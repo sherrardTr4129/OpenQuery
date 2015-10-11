@@ -1,7 +1,7 @@
 import csv
 import math
 from CSHLDAP import CSHLDAP
-from gtts import gTTS 
+from subprocess import call
 
 your_gender_list = []
 with open('match_scores.csv', 'rb') as f:
@@ -28,8 +28,14 @@ with open('match_scores.csv', 'rb') as f:
     password = '12-34-98'
     print("Prediction: ", finalPeopleList[index] , " Confidence: ", tempList[index])
     ldap_con = CSHLDAP("sherrardtr", password)
-    result = ldap_con.search(cn=finalPeopleList[index].split('.')[0])
-    msgString = "Hello " + finalPeopleList[index].split('.')[0]
+    name = finalPeopleList[index].split(" ")
+    nameStr = name[0].strip() + " " + name[1].strip()
+    print(nameStr)
+    result = ldap_con.search(cn=nameStr)
+    msgString = "Hello " + nameStr
+    file = open("names.txt", "a+")
+    file.write(nameStr +" Confidence: " + tempList[index]  + "\n")
+    file.close()
     onFloor = result[0][1]['onfloor']
     skills =[]
     if('skills' in result[0][1]):
@@ -41,17 +47,16 @@ with open('match_scores.csv', 'rb') as f:
     skillsStr = ""
     if(skills != []):
         for x in range(len(skills)):
-            skillsStr +=  skills[x] + " " 
+            if(x == 0):
+            	skillsStr += skills[x] + ", "
+ 	    elif(x == len(skills)-1):
+		skillsStr += ", and " + skills[x]
+	    else:
+		skillsStr += ", " + skills[x]
         msgString += "with skills in " + skillsStr 
     print(msgString)
-    tts = gTTS(text=msgString, lang="en") 
-    tts.save("hello.mp3")
-    print("appending: " + finalPeopleList[index].split('.')[0])
-    file1 = open("names.txt", "a")
-    file1.write(finalPeopleList[index].split('.')[0] + "\n")
-    file1.close()   
-
-
+    call(["pico2wave", "-w", "msg.wav", msgString])
+   
 
 
 
