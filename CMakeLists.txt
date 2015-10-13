@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project( OpenQueyt )
+project( FaceHarold )
 find_package( OpenCV REQUIRED )
-add_executable( getFaces getfaces.cpp )
-target_link_libraries( getFaces ${OpenCV_LIBS} )
+add_executable( getFacesFromPic getfacesFromPic.cpp)
+target_link_libraries( getFacesFromPic ${OpenCV_LIBS} )
