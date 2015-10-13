@@ -1,7 +1,5 @@
 # OpenQuery
-a face recognition query system. run runAnalysis to get things going.
+a face recognition query system. 
 
 dependecies include:
-OpenCV
-google text to speach (gtts)
-openbr
+OpenCV, pico2wave
