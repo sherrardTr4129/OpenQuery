@@ -1,3 +1,4 @@
+cd ..
 ./getFacesFromPic sample/face.jpg
 for f in *.jpg
 do
