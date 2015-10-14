@@ -2,14 +2,14 @@
 a face recognition query system for the Computer Science House at RIT 
 
 ##Installing 
-'''bash
+```bash
 cd /install
 ./Pico2WavInstallonRPi.sh
 ./InstallOpenCV.sh 
-'''
+```
 
 ##Building 
-'''bash
+```bash
 cd /src
 mkdir build
 cd build 
@@ -18,14 +18,14 @@ make
 mv getFacesFromPic ..
 mv getFaces ..
 mv fischerFaces ..
-'''
+```
 
 ##Running
-'''bash
+```bash
 cd scripts
 ./searchFaces.sh
 
 or
 
 ./searchFacesFromPic
-'''
+```
